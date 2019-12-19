@@ -91,6 +91,9 @@
 </template>
 
 <script>
+
+import resources from '../statics/data/resources.json'
+
 export default {
   name: 'MyLayout',
 
