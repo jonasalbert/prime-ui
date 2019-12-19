@@ -1,7 +1,7 @@
 [
-  { id:1, "name": "User Management" },
-  { id:2, "name": "Synchronization" },
-  { id:3, "name": "201 Files" },
-  { id:4, "name": "Time and Attendance" },
-  { id:5, "name": "Payslip" }
+  { "id":1, "name": "User Management", "icon": "group", "description": "Lorem Ipsum is simply dummy text..." },
+  { "id":2, "name": "Synchronization", "icon": "loop", "description": "Lorem Ipsum is simply dummy text..." },
+  { "id":3, "name": "201 Files", "icon": "file_copy", "description": "Lorem Ipsum is simply dummy text..." },
+  { "id":4, "name": "Time and Attendance", "icon": "access_alarm", "description": "Lorem Ipsum is simply dummy text..." },
+  { "id":5, "name": "Payslip", "icon": "insert_drive_file", "description": "Lorem Ipsum is simply dummy text..." }
 ]

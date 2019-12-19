@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Prime
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
 
@@ -27,16 +27,16 @@
     >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+        <q-item v-for="(item, i) in resources" :key="'res'+i"  clickable tag="a" target="_blank" href="https://quasar.dev">
           <q-item-section avatar>
-            <q-icon name="school" />
+            <q-icon :name="item.icon" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>Docs</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
+            <q-item-label>{{item.name}}</q-item-label>
+            <q-item-label caption>{{item.description}}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
+        <!-- <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
           <q-item-section avatar>
             <q-icon name="code" />
           </q-item-section>
@@ -80,7 +80,7 @@
             <q-item-label>Facebook</q-item-label>
             <q-item-label caption>@QuasarFramework</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
       </q-list>
     </q-drawer>
 
@@ -92,7 +92,7 @@
 
 <script>
 
-import resources from '../statics/data/resources.json'
+import resources_json from '../statics/data/resources.json'
 
 export default {
   name: 'MyLayout',
@@ -101,6 +101,10 @@ export default {
     return {
       leftDrawerOpen: false
     }
+  },
+  computed: {
+    resources: function() { return resources_json; }
   }
+
 }
 </script>
