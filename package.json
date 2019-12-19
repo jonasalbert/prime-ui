@@ -8,6 +8,8 @@
   "author": "jonasalbert <Jonasalbert@gmail.com>",
   "private": true,
   "scripts": {
+    "serve": "quasar dev -m pwa",
+    "build": "quasar build -m pwa",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {

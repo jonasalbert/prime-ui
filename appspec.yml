@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /var/www/html/prime_ui_source
+     overwrite: true
+hooks:
+    AfterInstall:
+      - location: /deploy/after_install.sh
+        timeout: 3000
+        runas: root
+
