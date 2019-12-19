@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8a2c5f9078e33382fedd",
+    "revision": "69ac23d9d2281bf634af",
     "url": "css/app.2f77557c.css"
   },
   {
@@ -36,28 +36,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0509ab09.woff2"
   },
   {
-    "revision": "c3e886514c633b21c81db623874d06cd",
-    "url": "img/quasar-logo-full.c3e88651.svg"
-  },
-  {
-    "revision": "23dac8cfcf68a3697c139b222248f647",
+    "revision": "e6ba9e339390d24f45bb9c5c6f034c3e",
     "url": "index.html"
   },
   {
-    "revision": "e06ce0935071474504c9",
-    "url": "js/2d22c0ff.06efd735.js"
+    "revision": "70d08ef105355d0ce160",
+    "url": "js/132328ab.677d3636.js"
+  },
+  {
+    "revision": "048204df191ade34182e",
+    "url": "js/2d0e8be2.b850f908.js"
   },
   {
     "revision": "d045e9cb547e0027b76b",
     "url": "js/7089f5c5.86719197.js"
   },
   {
-    "revision": "8a2c5f9078e33382fedd",
-    "url": "js/app.83e3d7bd.js"
-  },
-  {
-    "revision": "c6ddc57199463d9fd76a",
-    "url": "js/f73ee9c4.33967709.js"
+    "revision": "69ac23d9d2281bf634af",
+    "url": "js/app.1cc6d2b3.js"
   },
   {
     "revision": "94b1b69f1159750b87ca",
@@ -70,6 +66,34 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "805b0a66d63db95a76ddda23e3a8c12f",
     "url": "statics/app-logo-128x128.png"
+  },
+  {
+    "revision": "5e9d8bacdc4d3e2c7879fe1ffecad3ac",
+    "url": "statics/data/operations.json"
+  },
+  {
+    "revision": "26b7299b5ecb5108cb4cb05046b29e1f",
+    "url": "statics/data/permission_roles.json"
+  },
+  {
+    "revision": "e3897029039b4ea7a5bb5a2a1e69ebfb",
+    "url": "statics/data/permission_users.json"
+  },
+  {
+    "revision": "7f27608d2bb97bdf9117903113fe9aa3",
+    "url": "statics/data/permission_users_roles.json"
+  },
+  {
+    "revision": "91e862f52a227439767a82a228388452",
+    "url": "statics/data/resources.json"
+  },
+  {
+    "revision": "c27013c7949d4770c611d57a082c4ea4",
+    "url": "statics/data/roles.json"
+  },
+  {
+    "revision": "c02fc869298988c36e7a84ea84fbd00b",
+    "url": "statics/data/users.json"
   },
   {
     "revision": "bde75c95c26cbe407d8c3a51149c9047",
