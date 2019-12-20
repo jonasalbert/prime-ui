@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.fc8881d9d84fd98a695ee0e75cf60be4.js"
+  "precache-manifest.68f38dfe673b80f7b3c5449f9d10fe88.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "prime-ui"});

@@ -19,9 +19,13 @@
 <!-- <label for="">1</label>
 <label for="">2</label> -->
         <!-- ctr -->
-        <div style="background-color:green;height:100%;width:35px;">
+        <div style="background-color:green;height:100%;width:35px;float:left;">
         </div>
-        <div style="background-color:red;height:100%;width:35px;">
+        <div style="background-color:red;height:100%;width:35px;float:left;">
+        </div>
+        <div style="background-color:orange;height:100%;width:calc(100% - 120px);float:left;">
+        </div>
+        <div style="background-color:red;height:100%;width:50px;float:right;">
         </div>
 
         <!-- <div style="background-color:green;height:100%;width:calc(100% - 70px);">
