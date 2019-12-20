@@ -1,6 +1,26 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "69ac23d9d2281bf634af",
+    "revision": "dcf67c3876bb71d1a27a",
+    "url": "css/1ddecd42.89d14801.css"
+  },
+  {
+    "revision": "07607e46baa276881cfb",
+    "url": "css/23d497b0.1920ce6b.css"
+  },
+  {
+    "revision": "eec134d3d3b886053e45",
+    "url": "css/26d7cb4c.b6c723db.css"
+  },
+  {
+    "revision": "5c9c98b3bab73f8accb5",
+    "url": "css/311fd950.5b4112c5.css"
+  },
+  {
+    "revision": "f7d94a2ed8307818c4b6",
+    "url": "css/45c97edd.799e7de8.css"
+  },
+  {
+    "revision": "5402a905ad58e5ef8537",
     "url": "css/app.2f77557c.css"
   },
   {
@@ -36,28 +56,44 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0509ab09.woff2"
   },
   {
-    "revision": "e6ba9e339390d24f45bb9c5c6f034c3e",
+    "revision": "466497f3241a4026873384292e52a744",
     "url": "index.html"
   },
   {
-    "revision": "70d08ef105355d0ce160",
-    "url": "js/132328ab.677d3636.js"
+    "revision": "2fd3b474d2a02762d1d3",
+    "url": "js/132328ab.e496090b.js"
   },
   {
-    "revision": "048204df191ade34182e",
-    "url": "js/2d0e8be2.b850f908.js"
+    "revision": "dcf67c3876bb71d1a27a",
+    "url": "js/1ddecd42.91b48b14.js"
+  },
+  {
+    "revision": "07607e46baa276881cfb",
+    "url": "js/23d497b0.9bcfbc14.js"
+  },
+  {
+    "revision": "eec134d3d3b886053e45",
+    "url": "js/26d7cb4c.2dc1531f.js"
+  },
+  {
+    "revision": "5c9c98b3bab73f8accb5",
+    "url": "js/311fd950.1e94614e.js"
+  },
+  {
+    "revision": "f7d94a2ed8307818c4b6",
+    "url": "js/45c97edd.a3764155.js"
   },
   {
     "revision": "d045e9cb547e0027b76b",
     "url": "js/7089f5c5.86719197.js"
   },
   {
-    "revision": "69ac23d9d2281bf634af",
-    "url": "js/app.1cc6d2b3.js"
+    "revision": "5402a905ad58e5ef8537",
+    "url": "js/app.d6ff3bd7.js"
   },
   {
-    "revision": "94b1b69f1159750b87ca",
-    "url": "js/vendor.41dc4568.js"
+    "revision": "b7fca9bf15f724e4779c",
+    "url": "js/vendor.56fbfbf0.js"
   },
   {
     "revision": "5884189102fa7f5052f7ce4a5490fa67",
@@ -84,7 +120,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "statics/data/permission_users_roles.json"
   },
   {
-    "revision": "91e862f52a227439767a82a228388452",
+    "revision": "33287116defcda16956215bb2bb96468",
     "url": "statics/data/resources.json"
   },
   {

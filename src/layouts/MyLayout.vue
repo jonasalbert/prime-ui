@@ -74,17 +74,9 @@ export default {
   },
   methods: {
     reRoute: function(item) {
-      console.log('reReoute...', item);
       this.link=item.link;
       this.$store.commit('general/setFeaturesName', item.name)
       this.$router.push({ name:item.routeName });
-
-      // if (item.label==='ROI') {
-      //   this.$router.push({ name:item.routeName, params: { kind:'roi' } });
-      // }else {
-      //   this.$router.push({ name:item.routeName });
-      // }
-
     }
   },
   computed: {
