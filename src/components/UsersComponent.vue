@@ -14,7 +14,7 @@
     </q-input>
     <div style="width:100%;height:calc(100% - 45px);overflow-y:auto;overflow-x:hidden;margin-top:45px;">
       <!-- {{users}} -->
-      <div v-for="(item,i) in 1" :key="'user'+i" clas="flex row items-center justify-center" style="background-color:white;height:5vh;width:100%;margin-bottom:1px;position:relative;">
+      <div v-for="(item,i) in 15" :key="'user'+i" clas="flex row items-center justify-center" style="background-color:white;height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
 
 <!-- <label for="">1</label>
 <label for="">2</label> -->
