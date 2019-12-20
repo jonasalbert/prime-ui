@@ -5,7 +5,7 @@
 </style>
 
 <template>
-  <div class="flex pad-page" style="background-color:#fbf3f3;height:100%;width:100%;">
+  <div class="flex pad-page" style="background-color:pink;height:100%;width:100%;">
     <q-input dense square outlined v-model="searchUser" placeholder="search user" style="background-color:white;width: calc(100% - 42px);margin-bottom:1px;position:absolute;">
       <template v-slot:append>
         <q-icon name="search" />
@@ -25,7 +25,17 @@
         </div>
         <div style="background-color:orange;height:100%;width:calc(100% - 120px);float:left;">
         </div>
-        <div style="background-color:red;height:100%;width:50px;float:right;">
+        <div class="flex justify-evenly items-center" style="background-color:red;height:100%;width:50px;float:right;">
+          <q-icon name="remove">
+            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
+              Delete
+            </q-tooltip>
+          </q-icon>
+          <q-icon name="edit">
+            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
+              Edit
+            </q-tooltip>
+          </q-icon>
         </div>
 
         <!-- <div style="background-color:green;height:100%;width:calc(100% - 70px);">

@@ -17,7 +17,9 @@
       <q-separator />
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="users" style="height:75vh;">
-          <UserComponent/>
+          <div style="width:400px;background-color:blue;height:100%;">
+            <UserComponent/>
+          </div>
         </q-tab-panel>
         <q-tab-panel name="roles" style="height:75vh;">
           roles
