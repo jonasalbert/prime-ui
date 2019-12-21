@@ -1,6 +1,6 @@
 [
-  { "id": 1, "name": "Admin" },
-  { "id": 2, "name": "Support" },
-  { "id": 3, "name": "Accountant" },
-  { "id": 4, "name": "Auditor" },
+  { "id": 1, "name": "Admin", "selected":0 },
+  { "id": 2, "name": "Support", "selected":0 },
+  { "id": 3, "name": "Accountant", "selected":0 },
+  { "id": 4, "name": "Auditor", "selected":0 }
 ]

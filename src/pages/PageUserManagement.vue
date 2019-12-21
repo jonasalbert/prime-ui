@@ -18,11 +18,13 @@
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="users" style="height:75vh;">
           <div style="width:400px;background-color:blue;height:100%;">
-            <UserComponent/>
+            <UsersComponent/>
           </div>
         </q-tab-panel>
         <q-tab-panel name="roles" style="height:75vh;">
-          roles
+          <div style="width:400px;background-color:blue;height:100%;">
+            <RolesComponent/>
+          </div>
         </q-tab-panel>
         <q-tab-panel name="resources" style="height:75vh;">
           resources
@@ -39,12 +41,13 @@
 
 <script>
 
-import UserComponent from '../components/UsersComponent';
+import UsersComponent from '../components/UsersComponent';
+import RolesComponent from '../components/RolesComponent';
 
 export default {
   name: 'PageUserManagement',
   components: {
-    UserComponent
+    UsersComponent, RolesComponent
   },
   data() {
     return {

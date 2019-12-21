@@ -2,61 +2,83 @@
   .pad-page {
     padding: 5px;
   }
+  .selected {
+    background-color:#d0cece;
+  }
 </style>
 
 <template>
-  <div class="flex pad-page" style="background-color:pink;height:100%;width:100%;">
-    <q-input dense square outlined v-model="searchUser" placeholder="search user" style="background-color:white;width: calc(100% - 42px);margin-bottom:1px;position:absolute;">
-      <template v-slot:append>
-        <q-icon name="search" />
-        <q-icon name="add" />
-      </template>
-    </q-input>
-    <div style="width:100%;height:calc(100% - 45px);overflow-y:auto;overflow-x:hidden;margin-top:45px;">
-      <!-- {{users}} -->
-      <div v-for="(item,i) in 15" :key="'user'+i" clas="flex row items-center justify-center" style="background-color:white;height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
+  <div class="flex pad-page1" style="background-color:#f7f7f7;height:100%;width:100%;position:relative;">
 
-<!-- <label for="">1</label>
-<label for="">2</label> -->
+    <!-- search -->
+    <div  style="background-color:transparent;width:100%;margin-bottom:1px;height:45px;position:relative;">
+
+      <q-input dense square outlined v-model="searchUser" placeholder="search user">
+        <template v-slot:append >
+          <q-icon name="search"/>
+          <q-icon name="add" style="cursor:pointer;" @click="addUser()" />
+        </template>
+      </q-input>
+
+    </div>
+
+    <!-- listing -->
+    <div  style="width:100%;height:calc(100% - 45px);overflow-y:auto;overflow-x:hidden;margin-top:0px;">
+
+      <div v-for="(item,i) in users" :key="'user'+i"
+        animated @click="selectedUser(item)"
+        class="flex row items-center justify-center"
+        :style="{ backgroundColor: item.selected ? '#d0cece':'white'}"
+        style="height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
+
         <!-- ctr -->
-        <div style="background-color:green;height:100%;width:35px;float:left;">
-        </div>
-        <div style="background-color:red;height:100%;width:35px;float:left;">
-        </div>
-        <div style="background-color:orange;height:100%;width:calc(100% - 120px);float:left;">
-        </div>
-        <div class="flex justify-evenly items-center" style="background-color:red;height:100%;width:50px;float:right;">
-          <q-icon name="remove">
-            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
-              Delete
-            </q-tooltip>
-          </q-icon>
-          <q-icon name="edit">
-            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
-              Edit
-            </q-tooltip>
-          </q-icon>
+        <div class="flex items-center justify-center" style="background-color:transparent;height:100%;width:35px;float:left;">
+          <label for="">{{i+1}}</label>
         </div>
 
-        <!-- <div style="background-color:green;height:100%;width:calc(100% - 70px);">
-        </div> -->
+        <!-- selected -->
+        <div class="flex items-center justify-center" style="background-color:transparent;height:100%;width:35px;float:left;">
+          <label for="">{{item.selected}}</label>
+        </div>
+
+        <!-- name -->
+        <div class="flex items-center justify-first" style="background-color:transparent;height:100%;width:calc(100% - 120px);float:left;">
+          <label for="">{{item.name}}</label>
+        </div>
 
         <!-- buttons -->
-        <!-- <div class="flex justify-evenly items-center" style="background-color:orange;position:absolute;right:5px;cursor:pointer;height:100%;width:50px;">
-          <q-icon name="remove">
-            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
-              Delete
-            </q-tooltip>
-          </q-icon>
-          <q-icon name="edit">
+        <div class="flex justify-evenly items-center" style="background-color:transparent;height:100%;width:50px;float:right;cursor:pointer;">
+          <q-icon @click="editUser(item)" name="edit">
             <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
               Edit
             </q-tooltip>
           </q-icon>
-        </div> -->
+          <q-icon @click="deleteUser(item)"  name="remove">
+            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
+              Delete
+            </q-tooltip>
+          </q-icon>
+        </div>
 
       </div>
     </div>
+
+    <!-- entry -->
+    <div v-if="showEntryUser" style="background-color:white;width:100%;margin-bottom:1px;height:100%;position:absolute;border: 1px solid gray;">
+
+      <div class="q-pa-md">
+        <q-input v-model="entryUser.name" label="Usenamer" placeholder="Usenamer" dense />
+      </div>
+{{entryUser}}
+
+      <!-- buttons entry -->
+      <div class="flex row items-center justify-center;" style="background-color:transparent;height:45px; width:90px;position:absolute;right:0;padding:5px 0 5px 0;top:0;">
+        <q-btn flat round color="primary" icon="save" @click="saveUser(entryUser)" />
+        <q-btn flat round color="primary" icon="clear" @click="closeUser()" />
+      </div>
+
+    </div>
+
 
   </div>
 </template>
@@ -64,21 +86,62 @@
 <script>
 
 import users_json from '../statics/data/users.json';
+import _ from 'lodash';
+import { uid } from 'quasar'
 
 export default {
   name: 'UsersComponent',
   data() {
     return {
-      searchUser:''
+      searchUser:'',
+      showEntryUser:false,
+      modeUser: 1, //1=add, 2=edit
+      entryUser:{
+        id:uid(),
+        name:'',
+        selected:0
+      }
+    }
+  },
+  methods: {
+    selectedUser: function(item) {
+      this.$store.commit('users/setSelected',item);
+    },
+    addUser: function() {
+      this.modeUser=1;
+      this.showEntryUser = true;
+      this.entryUser = {
+        id:uid(),
+        name:'',
+        selected:0
+      };
+    },
+    editUser: function(item) {
+      this.modeUser=2;
+      this.entryUser = item;
+      this.showEntryUser = true;
+    },
+    closeUser: function() {
+      this.showEntryUser = false;
+    },
+    saveUser: function(item) {
+      if (this.modeUser==1) {
+        this.$store.commit('users/add', item);
+      } else {
+        this.$store.commit('users/update', item);
+      }
+
+      this.showEntryUser = false;
+    },
+    deleteUser: function(item) {
+      this.$store.commit('users/del', item);
     }
   },
   computed: {
     users: function() {
-      let list = this.$store.state.users.list.data;
-      if (list==null) {
-        this.$store.commit('users/setList', users_json)
-      }
-      return list==null ? users_json:list;
+      // let list = JSON.parse(JSON.stringify(this.$store.state.users.list.data));
+      let list =this.$store.state.users.list.data;
+      return list;
     }
   }
 }
