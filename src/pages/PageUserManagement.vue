@@ -27,10 +27,14 @@
           </div>
         </q-tab-panel>
         <q-tab-panel name="resources" style="height:75vh;">
-          resources
+          <div style="width:400px;background-color:blue;height:100%;">
+            <ResourcesComponent/>
+          </div>
         </q-tab-panel>
         <q-tab-panel name="operations" style="height:75vh;">
-          operations
+          <div style="width:400px;background-color:blue;height:100%;">
+            <OperationsComponent/>
+          </div>
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -43,11 +47,13 @@
 
 import UsersComponent from '../components/UsersComponent';
 import RolesComponent from '../components/RolesComponent';
+import ResourcesComponent from '../components/ResourcesComponent';
+import OperationsComponent from '../components/OperationsComponent';
 
 export default {
   name: 'PageUserManagement',
   components: {
-    UsersComponent, RolesComponent
+    UsersComponent, RolesComponent, ResourcesComponent, OperationsComponent
   },
   data() {
     return {

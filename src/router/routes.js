@@ -9,13 +9,24 @@ import operations_json from '../statics/data/operations.json'
 const init = function() {
   let user = store.state.users.list.data;
   if (user.length==0) {
-    store.commit('users/setList', users_json)
+    store.commit('users/setList', users_json);
   }
 
   let roles = store.state.roles.list.data;
   if (roles.length==0) {
-    store.commit('roles/setList', roles_json)
+    store.commit('roles/setList', roles_json);
   }
+
+  let resources = store.state.resources.list.data;
+  if (resources.length==0) {
+    store.commit('resources/setList', resources_json);
+  }
+
+  let operations = store.state.operations.list.data;
+  if (operations.length==0) {
+    store.commit('operations/setList', operations_json);
+  }
+
 }
 
 

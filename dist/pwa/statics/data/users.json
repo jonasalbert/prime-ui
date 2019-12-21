@@ -1,7 +1,7 @@
 [
-  { "id": 1, "name": "Ryan Dahl" },
-  { "id": 2, "name": "Yukihiro Matsumoto" },
-  { "id": 3, "name": "Guido Van Rossum" },
-  { "id": 4, "name": "Bjarne Stroustrup" },
-  { "id": 5, "name": "Anders Hejlsberg" }
+  { "id": 1, "name": "Ryan Dahl" , "selected":0 },
+  { "id": 2, "name": "Yukihiro Matsumoto" , "selected":0 },
+  { "id": 3, "name": "Guido Van Rossum" , "selected":0 },
+  { "id": 4, "name": "Bjarne Stroustrup" , "selected":0 },
+  { "id": 5, "name": "Anders Hejlsberg" , "selected":0 }
 ]

@@ -13,7 +13,7 @@
     <!-- search -->
     <div  style="background-color:transparent;width:100%;margin-bottom:1px;height:45px;position:relative;">
 
-      <q-input dense square outlined v-model="searchRole" placeholder="search Role">
+      <q-input dense square outlined v-model="searchRole" placeholder="search role">
         <template v-slot:append >
           <q-icon name="search"/>
           <q-icon name="add" style="cursor:pointer;" @click="addRole()" />

@@ -84,7 +84,6 @@
 
 <script>
 
-import users_json from '../statics/data/users.json';
 import _ from 'lodash';
 import { uid } from 'quasar'
 
