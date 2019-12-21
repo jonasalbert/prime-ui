@@ -5,22 +5,26 @@ import roles_json from '../statics/data/roles.json'
 import resources_json from '../statics/data/resources.json'
 import operations_json from '../statics/data/operations.json'
 
+
+const init = function() {
+  let user = store.state.users.list.data;
+  if (user.length==0) {
+    store.commit('users/setList', users_json)
+  }
+
+  let roles = store.state.roles.list.data;
+  if (roles.length==0) {
+    store.commit('roles/setList', roles_json)
+  }
+}
+
+
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
     beforeEnter: (to, from, next) => {
-
-      let user = store.state.users.list.data;
-      if (user.length==0) {
-        store.commit('users/setList', users_json)
-      }
-
-      let roles = store.state.roles.list.data;
-      if (roles.length==0) {
-        store.commit('users/setList', roles_json)
-      }
-
+      init();
       next();
     },
     children: [
@@ -35,11 +39,7 @@ const routes = [
     path: '/page',
     component: () => import('layouts/MyLayout.vue'),
     beforeEnter: (to, from, next) => {
-      let list = store.state.users.list.data;
-      if (list.length==0) {
-        store.commit('users/setList', users_json)
-      }
-      console.log('beforeEnter...', list);
+      init();
       next();
     },
     children: [

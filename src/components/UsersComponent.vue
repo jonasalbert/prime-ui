@@ -69,7 +69,6 @@
       <div class="q-pa-md">
         <q-input v-model="entryUser.name" label="Usenamer" placeholder="Usenamer" dense />
       </div>
-{{entryUser}}
 
       <!-- buttons entry -->
       <div class="flex row items-center justify-center;" style="background-color:transparent;height:45px; width:90px;position:absolute;right:0;padding:5px 0 5px 0;top:0;">
@@ -139,9 +138,9 @@ export default {
   },
   computed: {
     users: function() {
-      // let list = JSON.parse(JSON.stringify(this.$store.state.users.list.data));
-      let list =this.$store.state.users.list.data;
-      return list;
+      const list = this.$store.state.users.list.data;
+      const filtered = list.filter(item => item.name.toUpperCase().indexOf(this.searchUser.toUpperCase()) > -1);
+      return filtered;
     }
   }
 }

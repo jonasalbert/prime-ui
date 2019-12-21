@@ -69,7 +69,6 @@
       <div class="q-pa-md">
         <q-input v-model="entryRole.name" label="Usenamer" placeholder="Usenamer" dense />
       </div>
-{{entryRole}}
 
       <!-- buttons entry -->
       <div class="flex row items-center justify-center;" style="background-color:transparent;height:45px; width:90px;position:absolute;right:0;padding:5px 0 5px 0;top:0;">
@@ -85,7 +84,7 @@
 
 <script>
 
-import Roles_json from '../statics/data/roles.json';
+import roles_json from '../statics/data/roles.json';
 import _ from 'lodash';
 import { uid } from 'quasar'
 
@@ -139,9 +138,10 @@ export default {
   },
   computed: {
     roles: function() {
-      // let list = JSON.parse(JSON.stringify(this.$store.state.roles.list.data));
-      let list =this.$store.state.roles.list.data;
-      return list;
+      // const list = JSON.parse(JSON.stringify(this.$store.state.roles.list.data));
+      const list = this.$store.state.roles.list.data;
+      const filtered = list.filter(item => item.name.toUpperCase().indexOf(this.searchRole.toUpperCase()) > -1);
+      return filtered;
     }
   }
 }
