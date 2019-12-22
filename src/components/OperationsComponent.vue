@@ -67,7 +67,7 @@
     <div v-if="showEntryOperation" style="background-color:white;width:100%;margin-bottom:1px;height:100%;position:absolute;border: 1px solid gray;">
 
       <div class="q-pa-md">
-        <q-input v-model="entryOperation.name" label="Usenamer" placeholder="Usenamer" dense />
+        <q-input v-model="entryOperation.name" label="Operation" placeholder="Operation" dense />
       </div>
 
       <!-- buttons entry -->

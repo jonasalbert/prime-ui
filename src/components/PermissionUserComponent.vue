@@ -13,10 +13,10 @@
     <!-- search -->
     <div  style="background-color:transparent;width:100%;margin-bottom:1px;height:45px;position:relative;">
 
-      <q-input dense square outlined v-model="searchUser" placeholder="search user">
+      <q-input dense square outlined v-model="searchUser" placeholder="search permission">
         <template v-slot:append >
           <q-icon name="search"/>
-          <q-icon name="add" style="cursor:pointer;" @click="addUser()" />
+          <!-- <q-icon name="add" style="cursor:pointer;" @click="addUser()" /> -->
         </template>
       </q-input>
 
@@ -24,7 +24,6 @@
 
     <!-- listing -->
     <div  style="width:100%;height:calc(100% - 45px);overflow-y:auto;overflow-x:hidden;margin-top:0px;">
-
       <!-- header -->
       <div
         style="background-color:#e0dfdf;height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
@@ -36,14 +35,14 @@
 
         <!-- name -->
         <div class="flex items-center justify-first" style="background-color:transparent;height:100%;width:calc(100% - 85px);float:left;">
-          <label for="">Username</label>
+          <label for="">Resource</label>
         </div>
 
       </div>
 
       <div v-for="(item,i) in users" :key="'user'+i"
         animated @click="selectedUser(item)"
-        class="flex row items-center justify-center"
+        class="flex row items-center justify-first"
         :style="{ backgroundColor: item.selected ? '#d0cece':'white'}"
         style="height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
 
@@ -57,19 +56,6 @@
           <label for="">{{item.name}}</label>
         </div>
 
-        <!-- buttons -->
-        <div class="flex justify-evenly items-center" style="background-color:transparent;height:100%;width:50px;float:right;cursor:pointer;">
-          <q-icon @click="editUser(item)" name="edit">
-            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
-              Edit
-            </q-tooltip>
-          </q-icon>
-          <q-icon @click="deleteUser(item)"  name="remove">
-            <q-tooltip content-class="bg-purple" content-style="font-size:11px" :offset="[10, 10]">
-              Delete
-            </q-tooltip>
-          </q-icon>
-        </div>
 
       </div>
     </div>

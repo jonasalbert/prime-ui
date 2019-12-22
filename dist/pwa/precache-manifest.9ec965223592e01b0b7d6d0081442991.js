@@ -12,16 +12,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "css/311fd950.5b4112c5.css"
   },
   {
+    "revision": "a352e9ef6994c1568e27",
+    "url": "css/3450f772.3b9f2b2d.css"
+  },
+  {
     "revision": "f7d94a2ed8307818c4b6",
     "url": "css/45c97edd.799e7de8.css"
   },
   {
-    "revision": "8c7c71e2e2754b1de402",
+    "revision": "25b63f01e861db80a485",
     "url": "css/app.2f77557c.css"
-  },
-  {
-    "revision": "b4721cfd43f937a38607",
-    "url": "css/e3ccbfb6.0efa9fec.css"
   },
   {
     "revision": "5cb7edfceb233100075dc9a1e12e8da3",
@@ -56,7 +56,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0509ab09.woff2"
   },
   {
-    "revision": "214754a49e3f66fbd5641853eb9dd7d8",
+    "revision": "d612693c7897b2f3dd74b6355df32383",
     "url": "index.html"
   },
   {
@@ -76,6 +76,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "js/311fd950.1e94614e.js"
   },
   {
+    "revision": "a352e9ef6994c1568e27",
+    "url": "js/3450f772.94d5d891.js"
+  },
+  {
     "revision": "f7d94a2ed8307818c4b6",
     "url": "js/45c97edd.a3764155.js"
   },
@@ -84,16 +88,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "js/4b47640d.0cebc80e.js"
   },
   {
-    "revision": "8c7c71e2e2754b1de402",
-    "url": "js/app.fa571c6f.js"
+    "revision": "25b63f01e861db80a485",
+    "url": "js/app.8c2c17a3.js"
   },
   {
-    "revision": "b4721cfd43f937a38607",
-    "url": "js/e3ccbfb6.9397b52c.js"
-  },
-  {
-    "revision": "7e920c59d95918f39f6b",
-    "url": "js/vendor.e76bf076.js"
+    "revision": "b83f86541446708cc9a3",
+    "url": "js/vendor.7b18797e.js"
   },
   {
     "revision": "5884189102fa7f5052f7ce4a5490fa67",
@@ -112,7 +112,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "statics/data/permission_roles.json"
   },
   {
-    "revision": "e3897029039b4ea7a5bb5a2a1e69ebfb",
+    "revision": "921757ea79ebc93d4b22bd15133d8089",
     "url": "statics/data/permission_users.json"
   },
   {
@@ -120,7 +120,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "statics/data/permission_users_roles.json"
   },
   {
-    "revision": "8d75b2d66d8a5453e2a8ac23f2462365",
+    "revision": "5f674d93cb345c5e60309914f70afc89",
     "url": "statics/data/resources.json"
   },
   {

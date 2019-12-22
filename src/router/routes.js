@@ -1,9 +1,10 @@
 import store from '../store/index';
 
 import users_json from '../statics/data/users.json';
-import roles_json from '../statics/data/roles.json'
-import resources_json from '../statics/data/resources.json'
-import operations_json from '../statics/data/operations.json'
+import roles_json from '../statics/data/roles.json';
+import resources_json from '../statics/data/resources.json';
+import operations_json from '../statics/data/operations.json';
+import permission_users_json from '../statics/data/permission_users.json';
 
 
 const init = function() {
@@ -27,8 +28,31 @@ const init = function() {
     store.commit('operations/setList', operations_json);
   }
 
+  let permission_users = store.state.permissions.users.data;
+  if (permission_users.length==0) {
+    store.commit('permissions/setListUsers', permission_users_json);
+  }
+
+const result = join(permission_users_json, resources_json,'resources_id');
+
+
+console.log("RESULT...", result);
+
+
 }
 
+// code reference:
+  // https://stackoverflow.com/questions/54228609/how-to-merge-the-key-value-pairs-of-two-json-arrays-javascript?fbclid=IwAR2OX3JDkJLUEhsMBUsVzM0R74ts0AgdYNwIFR3mIHmZXX_-uvvohrZnt9c
+const join = (many, one, key) => {
+  return Object.values(
+    [].concat(many, one)
+    .reduce((dict, item) => {
+      var value = dict[item[key]] || {}
+      value = Object.assign({} , value, item)
+      dict[item[key]] = value
+      return dict
+    }, {}));
+}
 
 const routes = [
   {

@@ -1,5 +1,3 @@
-export function someMutation (/* state */) {
-}
 import Vue from 'vue';
 import _ from 'lodash';
 

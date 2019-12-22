@@ -67,7 +67,7 @@
     <div v-if="showEntryRole" style="background-color:white;width:100%;margin-bottom:1px;height:100%;position:absolute;border: 1px solid gray;">
 
       <div class="q-pa-md">
-        <q-input v-model="entryRole.name" label="Usenamer" placeholder="Usenamer" dense />
+        <q-input v-model="entryRole.name" label="Role" placeholder="Role" dense />
       </div>
 
       <!-- buttons entry -->

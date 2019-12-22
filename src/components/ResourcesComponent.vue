@@ -67,7 +67,7 @@
     <div v-if="showEntryResource" style="background-color:white;width:100%;margin-bottom:1px;height:100%;position:absolute;border: 1px solid gray;">
 
       <div class="q-pa-md">
-        <q-input v-model="entryResource.name" label="Usenamer" placeholder="Usenamer" dense />
+        <q-input v-model="entryResource.name" label="Resource" placeholder="Resource" dense />
       </div>
 
       <!-- buttons entry -->

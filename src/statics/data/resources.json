@@ -1,7 +1,7 @@
 [
-  { "id":1, "name": "User Management", "icon": "group", "link": "usermanagement", "routeName": "usermanagement", "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
-  { "id":2, "name": "Synchronization", "icon": "loop", "link": "synchronization", "routeName": "synchronization", "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
-  { "id":3, "name": "201 Files", "icon": "file_copy", "link": "files201", "routeName": "files201",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
-  { "id":4, "name": "Time and Attendance", "icon": "access_alarm", "link": "timeandattendance", "routeName": "timeandattendance",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
-  { "id":5, "name": "Payslip", "icon": "insert_drive_file", "link": "payslip", "routeName": "payslip",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 }
+  { "resources_id":1, "name": "User Management", "icon": "group", "link": "usermanagement", "routeName": "usermanagement", "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
+  { "resources_id":2, "name": "Synchronization", "icon": "loop", "link": "synchronization", "routeName": "synchronization", "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
+  { "resources_id":3, "name": "201 Files", "icon": "file_copy", "link": "files201", "routeName": "files201",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
+  { "resources_id":4, "name": "Time and Attendance", "icon": "access_alarm", "link": "timeandattendance", "routeName": "timeandattendance",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 },
+  { "resources_id":5, "name": "Payslip", "icon": "insert_drive_file", "link": "payslip", "routeName": "payslip",  "description": "Lorem Ipsum is simply dummy text...", "selected":0 }
 ]
