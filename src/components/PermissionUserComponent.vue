@@ -3,7 +3,7 @@
     padding: 5px;
   }
   .selected {
-    background-color:#d0cece;
+    background-color:#cce8ff;
   }
 </style>
 
@@ -13,7 +13,7 @@
     <!-- search -->
     <div  style="background-color:transparent;width:100%;margin-bottom:1px;height:45px;position:relative;">
 
-      <q-input dense square outlined v-model="searchUser" placeholder="search permission">
+      <q-input dense square outlined v-model="searchPermission" placeholder="search permission">
         <template v-slot:append >
           <q-icon name="search"/>
           <!-- <q-icon name="add" style="cursor:pointer;" @click="addUser()" /> -->
@@ -40,10 +40,10 @@
 
       </div>
 
-      <div v-for="(item,i) in users" :key="'user'+i"
+      <div v-for="(item,i) in permissions" :key="'user'+i"
         animated @click="selectedUser(item)"
         class="flex row items-center justify-first"
-        :style="{ backgroundColor: item.selected ? '#d0cece':'white'}"
+        :style="{ backgroundColor: item.selected ? '#cce8ff':'white'}"
         style="height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
 
         <!-- ctr -->
@@ -60,20 +60,7 @@
       </div>
     </div>
 
-    <!-- entry -->
-    <div v-if="showEntryUser" style="background-color:white;width:100%;margin-bottom:1px;height:100%;position:absolute;border: 1px solid gray;">
 
-      <div class="q-pa-md">
-        <q-input v-model="entryUser.name" label="Username" placeholder="Username" dense />
-      </div>
-
-      <!-- buttons entry -->
-      <div class="flex row items-center justify-center;" style="background-color:transparent;height:45px; width:90px;position:absolute;right:0;padding:5px 0 5px 0;top:0;">
-        <q-btn flat round color="primary" icon="save" @click="saveUser(entryUser)" />
-        <q-btn flat round color="primary" icon="clear" @click="closeUser()" />
-      </div>
-
-    </div>
 
 
   </div>
@@ -84,59 +71,48 @@
 import _ from 'lodash';
 import { uid } from 'quasar'
 
+
+// code reference:
+// https://stackoverflow.com/questions/54228609/how-to-merge-the-key-value-pairs-of-two-json-arrays-javascript?fbclid=IwAR2OX3JDkJLUEhsMBUsVzM0R74ts0AgdYNwIFR3mIHmZXX_-uvvohrZnt9c
+const leftJoin = (many, one, key) => {
+  return Object.values(
+    [].concat(many, one)
+    .reduce((dict, item) => {
+      var value = dict[item[key]] || {}
+      value = Object.assign({} , value, item)
+      dict[item[key]] = value
+      return dict
+    }, {}));
+}
+
 export default {
-  name: 'UsersComponent',
+  name: 'PermissionUserComponent',
   data() {
     return {
-      searchUser:'',
-      showEntryUser:false,
-      modeUser: 1, //1=add, 2=edit
-      entryUser:{
-        id:uid(),
-        name:'',
-        selected:0
-      }
+      searchPermission:'',
+      filteredPermissions:[],
+      leftJoinPermission:[]
+    }
+  },
+  watch: {
+    selectedUser: function(user) {
+      this.getPermissions(user.id);
     }
   },
   methods: {
-    selectedUser: function(item) {
-      this.$store.commit('users/setSelected',item);
-    },
-    addUser: function() {
-      this.modeUser=1;
-      this.showEntryUser = true;
-      this.entryUser = {
-        id:uid(),
-        name:'',
-        selected:0
-      };
-    },
-    editUser: function(item) {
-      this.modeUser=2;
-      this.entryUser = item;
-      this.showEntryUser = true;
-    },
-    closeUser: function() {
-      this.showEntryUser = false;
-    },
-    saveUser: function(item) {
-      if (this.modeUser==1) {
-        this.$store.commit('users/add', item);
-      } else {
-        this.$store.commit('users/update', item);
-      }
-
-      this.showEntryUser = false;
-    },
-    deleteUser: function(item) {
-      this.$store.commit('users/del', item);
+    getPermissions: function(id) {
+      let filteredPermissions = _.filter(this.$store.state.permissions.users.data, item => item.users_id==id);
+      let leftJoinPermission = leftJoin(this.filteredPermissions, this.$store.state.resources.list.data,'resources_id');
+      this.$store.commit('permissions/setUsersPermissions', leftJoinPermission);
     }
   },
   computed: {
-    users: function() {
-      const list = this.$store.state.users.list.data;
-      const filtered = list.filter(item => item.name.toUpperCase().indexOf(this.searchUser.toUpperCase()) > -1);
-      return filtered;
+    permissions: function() {
+      return this.$store.state.permissions.users.permissions;
+    },
+    selectedUser: function() {
+      let user = this.$store.state.users.selected;
+      return user;
     }
   }
 }

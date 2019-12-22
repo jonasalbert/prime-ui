@@ -1,6 +1,7 @@
 export default {
   users: {
     data:[],
+    permissions:[],
     isLoading:false,
     selected:{}
   },

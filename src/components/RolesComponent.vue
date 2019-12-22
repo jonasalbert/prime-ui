@@ -3,7 +3,7 @@
     padding: 5px;
   }
   .selected {
-    background-color:#d0cece;
+    background-color:#cce8ff;
   }
 </style>
 
@@ -28,7 +28,7 @@
       <div v-for="(item,i) in roles" :key="'role'+i"
         animated @click="selectedRole(item)"
         class="flex row items-center justify-center"
-        :style="{ backgroundColor: item.selected ? '#d0cece':'white'}"
+        :style="{ backgroundColor: item.selected ? '#cce8ff':'white'}"
         style="height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
 
         <!-- ctr -->

@@ -10,3 +10,7 @@ export function setListUsersRoles(state, value) {
 export function setListRoles(state, value) {
   Vue.set(state.roles,'data',value);
 }
+
+export function setUsersPermissions(state, value) {
+  Vue.set(state.users,'permissions',value);
+}
