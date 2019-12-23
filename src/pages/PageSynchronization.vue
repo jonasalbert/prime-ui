@@ -6,12 +6,18 @@
 
 <template>
   <q-page class="flex flex-start column pad-page">
-    <div>Synchronization</div>
+    <RenderOperationsComponent :resources_id="2"/>
   </q-page>
 </template>
 
 <script>
+
+import RenderOperationsComponent from '../components/RenderOperationsComponent';
+
 export default {
-  name: 'PageSynchronization'
+  name: 'PageSynchronization',
+  components: {
+    RenderOperationsComponent
+  }
 }
 </script>

@@ -6,12 +6,18 @@
 
 <template>
   <q-page class="flex flex-start column pad-page">
-    <div>Time and Attendance</div>
+    <RenderOperationsComponent :resources_id="4"/>
   </q-page>
 </template>
 
 <script>
+
+import RenderOperationsComponent from '../components/RenderOperationsComponent';
+
 export default {
-  name: 'PageTimeAndAttendance'
+  name: 'PageTimeAndAttendance',
+  components: {
+    RenderOperationsComponent
+  }
 }
 </script>

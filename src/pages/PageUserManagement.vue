@@ -22,12 +22,12 @@
               <UsersComponent/>
             </div>
             <div class="" style="float:left;width:calc(100% - 300px);height:100%;">
-              <div style="height:50%;width:100%;padding:0 5px 0 5px;">
-                <PermissionUserComponent/>
+              <PermissionUserComponent/>
+              <!-- <div style="height:50%;width:100%;padding:0 5px 0 5px;">
               </div>
               <div style="height:50%;width:100%;">
+              </div> -->
 
-              </div>
             </div>
           </div>
         </q-tab-panel>

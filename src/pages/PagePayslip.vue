@@ -6,12 +6,18 @@
 
 <template>
   <q-page class="flex flex-start column pad-page">
-    <div>Payslip</div>
+    <RenderOperationsComponent :resources_id="5"/>
   </q-page>
 </template>
 
 <script>
+
+import RenderOperationsComponent from '../components/RenderOperationsComponent';
+
 export default {
-  name: 'PagePayslip'
+  name: 'PagePayslip',
+  components: {
+    RenderOperationsComponent
+  }
 }
 </script>
