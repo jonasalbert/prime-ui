@@ -10,9 +10,9 @@
     <q-card>
       <q-tabs v-model="tab" align="left" dense no-caps inline-label narrow-indicator>
         <q-tab name="users" icon="person" label="Users" />
-        <q-tab name="roles" icon="group" label="Roles" />
+        <!-- <q-tab name="roles" icon="group" label="Roles" />
         <q-tab name="resources" icon="multiline_chart" label="Resources" />
-        <q-tab name="operations" icon="post_add" label="Operations" />
+        <q-tab name="operations" icon="post_add" label="Operations" /> -->
       </q-tabs>
       <q-separator />
       <q-tab-panels v-model="tab" animated>
