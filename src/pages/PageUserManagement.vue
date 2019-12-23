@@ -27,11 +27,10 @@
               </div>
               <div style="height:50%;width:100%;">
               </div> -->
-
             </div>
           </div>
         </q-tab-panel>
-        <q-tab-panel name="roles" style="height:75vh;">
+        <!-- <q-tab-panel name="roles" style="height:75vh;">
           <div style="width:400px;background-color:blue;height:100%;">
             <RolesComponent/>
           </div>
@@ -45,7 +44,7 @@
           <div style="width:400px;background-color:blue;height:100%;">
             <OperationsComponent/>
           </div>
-        </q-tab-panel>
+        </q-tab-panel> -->
       </q-tab-panels>
     </q-card>
 
