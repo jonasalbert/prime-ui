@@ -32,7 +32,7 @@
     >
       <q-list>
         <q-item-label header>System's Features</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+        <!-- <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
           <q-item-section avatar>
             <q-icon name="vpn_key" />
           </q-item-section>
@@ -40,7 +40,7 @@
             <q-item-label>Login</q-item-label>
             <q-item-label caption>Simulation of login credentials.</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
         <q-item v-for="(item, i) in resources" :key="'res'+i"  clickable :active="link === item.link" @click="reRoute(item)" active-class="selected-link">
           <q-item-section avatar>
             <q-icon :name="item.icon" />

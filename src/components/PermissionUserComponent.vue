@@ -23,7 +23,7 @@
         <q-td key="name" :props="props">{{ props.row.name }}</q-td>
         <q-td key="prime_formula_operations" :props="props">{{ props.row.prime_formula_operations }}</q-td>
         <q-td v-for="(operation,i) in props.row.operations" :key="'operation'+i">
-          <q-checkbox :value="(props.row.prime_formula_operations % operation.prime_number ==0 )"/>
+          <input name="'name'+i" type="checkbox" :checked="(props.row.prime_formula_operations % operation.prime_number==0) ">
         </q-td>
       </q-tr>
 
