@@ -8,14 +8,9 @@ export function setIsLoadingList(state, value) {
   Vue.set(state.list, 'isLoading', value);
 }
 export function setSelected(state, value) {
-  console.log('setSelected value...', value);
   let res = _.find(state.list.data, { selected: 1 });
-  console.log('setSelected...', res);
-  if (res !== undefined) {
-    res.selected=0;
-  }
+  if (res !== undefined) { res.selected=0 };
   value.selected=1;
-  console.log('setSelected value...', value);
   Vue.set(state, 'selected', value);
 }
 export function add(state, value) {

@@ -23,7 +23,7 @@
         <q-td key="name" :props="props">{{ props.row.name }}</q-td>
         <q-td key="prime_formula_operations" :props="props">{{ props.row.prime_formula_operations }}</q-td>
         <q-td v-for="(operation,i) in props.row.operations" :key="'operation'+i">
-          <input name="'name'+i" type="checkbox" :checked="(props.row.prime_formula_operations % operation.prime_number==0) ">
+          <input @click="savePermission(props.row, props.row.operations, operation)" name="'name'+i" type="checkbox" v-model="operation.checked"  >
         </q-td>
       </q-tr>
 
@@ -58,28 +58,49 @@ export default {
     }
   },
   methods: {
+    savePermission: function(resource, operations, operation) {
+      console.log('resource...', resource);
+      console.log('operations...', operations);
+      console.log('operation...', operation);
+      let checkedOperations = _.filter(operations, item => item.checked==true);
+      checkedOperations.push(operation)
+
+      let prime_formula_operations = 1;
+      checkedOperations.forEach((item) => {
+        prime_formula_operations=prime_formula_operations*item.prime_number;
+      });
+      console.log('prime_formula_operations...', prime_formula_operations);
+      resource.prime_formula_operations=prime_formula_operations;
+      this.$store.commit('permissions/saveUsers', { id:resource.id ,prime_formula_operations });
+      this.getPermissions(this.selectedUser.id);
+
+    },
     getPermissions: function(id) {
+      // filter the permission by userid.
       let filteredPermissions = _.filter(this.$store.state.permissions.users.data, item => item.users_id==id);
 
-      // code reference: https://stackoverflow.com/questions/35903850/combine-json-arrays-by-key-javascript
+      // left join code reference: https://stackoverflow.com/questions/35903850/combine-json-arrays-by-key-javascript
       let leftJoinPermission = _(filteredPermissions)
                               .concat(this.resources)
                               .groupBy('resources_id')
                               .map(_.spread(_.assign))
                               .value();
 
+      let per=[];
+      leftJoinPermission.forEach((item) => {
+        let ops = _.map(this.operations, o => _.extend({ prime_formula_operations:item.prime_formula_operations }, o));
+        let operationsCheck = { operations: _.map(ops, o => _.extend({ checked: (o.prime_formula_operations%o.prime_number==0) }, o)) };
+        let ext = { ...item,...operationsCheck};
+        per.push(ext);
+      });
 
-      var withOperations = _.map(leftJoinPermission, o => _.extend({ operations:this.operations }, o));
-      let result = _.map(withOperations, _.partialRight(_.pick,['resources_id', 'prime_formula_operations','name','operations']))
-      console.log('withActions...',result);
-      console.log('columns...',this.columns);
+      let result = _.map(per, _.partialRight(_.pick,['resources_id', 'prime_formula_operations','name','operations','id',]))
 
       this.$store.commit('permissions/setUsersPermissions', result);
     }
   },
   computed: {
     columns: function() {
-      // { name: 'resources_id', label: '#', align: 'left', field: 'resources_id',style: 'width: 40px;' },
       let keys = [{ name:'resources_id'}, {name:'name'}, {name:'prime_formula_operations'}];
       let operations_keys = _.map(this.operations, _.partialRight(_.pick,['name']))
       let merge = [...keys,...operations_keys];
@@ -90,8 +111,7 @@ export default {
         style: 'width:auto;'
       }, o));
       let result = _.map(refinedKeys, _.partialRight(_.pick,['style', 'align','label','name','field']))
-      console.log('result...',result)
-      console.log('refinedKeys...',refinedKeys)
+
       return refinedKeys;
     },
     resources: function() {
@@ -102,7 +122,8 @@ export default {
       return list;
     },
     permissions: function() {
-      return this.$store.state.permissions.users.permissions;
+      let result = JSON.parse(JSON.stringify(this.$store.state.permissions.users.permissions));
+      return result;
     },
     selectedUser: function() {
       let user = this.$store.state.users.selected;
