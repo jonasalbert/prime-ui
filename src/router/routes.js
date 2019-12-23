@@ -34,15 +34,15 @@ const init = function() {
   }
 
 const result = join(permission_users_json, resources_json,'resources_id');
+var res = _.map(result, o => _.extend({selected: false, edited:false }, o));
 
-
-console.log("RESULT...", result);
+console.log("RESULT...", res);
 
 
 }
 
 // code reference:
-  // https://stackoverflow.com/questions/54228609/how-to-merge-the-key-value-pairs-of-two-json-arrays-javascript?fbclid=IwAR2OX3JDkJLUEhsMBUsVzM0R74ts0AgdYNwIFR3mIHmZXX_-uvvohrZnt9c
+// https://stackoverflow.com/questions/54228609/how-to-merge-the-key-value-pairs-of-two-json-arrays-javascript?fbclid=IwAR2OX3JDkJLUEhsMBUsVzM0R74ts0AgdYNwIFR3mIHmZXX_-uvvohrZnt9c
 const join = (many, one, key) => {
   return Object.values(
     [].concat(many, one)

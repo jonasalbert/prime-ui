@@ -18,6 +18,11 @@
   { "id": 17, "users_id": 4, "resources_id": 2, "prime_formula_operations": 13},
   { "id": 18, "users_id": 4, "resources_id": 3, "prime_formula_operations": 13},
   { "id": 19, "users_id": 4, "resources_id": 4, "prime_formula_operations": 13},
-  { "id": 20, "users_id": 4, "resources_id": 5, "prime_formula_operations": 13}
+  { "id": 20, "users_id": 4, "resources_id": 5, "prime_formula_operations": 13},
+  { "id": 21, "users_id": 5, "resources_id": 1, "prime_formula_operations": 13},
+  { "id": 22, "users_id": 5, "resources_id": 2, "prime_formula_operations": 13},
+  { "id": 23, "users_id": 5, "resources_id": 3, "prime_formula_operations": 13},
+  { "id": 24, "users_id": 5, "resources_id": 4, "prime_formula_operations": 13},
+  { "id": 25, "users_id": 5, "resources_id": 5, "prime_formula_operations": 13}
 
 ]

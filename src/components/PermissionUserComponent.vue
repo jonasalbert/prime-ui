@@ -8,62 +8,28 @@
 </style>
 
 <template>
-  <div class="flex pad-page1" style="background-color:#f7f7f7;height:100%;width:100%;position:relative;">
+  <div>
+    <!-- {{permissions}} -->
+    <!-- {{columns}} -->
+    <q-table
+      dense
+      :data="permissions"
+      :columns="columns"
+      hide-bottom
+      row-key="id"
+    >
+      <q-tr slot="body" slot-scope="props" :props="props">
+        <q-td key="resources_id" :props="props">{{ props.row.resources_id }}</q-td>
+        <q-td key="name" :props="props">{{ props.row.name }}</q-td>
+        <q-td key="prime_formula_operations" :props="props">{{ props.row.prime_formula_operations }}</q-td>
+        <q-td v-for="(operation,i) in props.row.operations" :key="'operation'+i">
+          <q-checkbox :value="(props.row.prime_formula_operations % operation.prime_number ==0 )"/>
+        </q-td>
+      </q-tr>
 
-    <!-- search -->
-    <div  style="background-color:transparent;width:100%;margin-bottom:1px;height:45px;position:relative;">
-
-      <q-input dense square outlined v-model="searchPermission" placeholder="search permission">
-        <template v-slot:append >
-          <q-icon name="search"/>
-          <!-- <q-icon name="add" style="cursor:pointer;" @click="addUser()" /> -->
-        </template>
-      </q-input>
-
-    </div>
-
-    <!-- listing -->
-    <div  style="width:100%;height:calc(100% - 45px);overflow-y:auto;overflow-x:hidden;margin-top:0px;">
-      <!-- header -->
-      <div
-        style="background-color:#e0dfdf;height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
-
-        <!-- ctr -->
-        <div class="flex items-center justify-center" style="background-color:transparent;height:100%;width:35px;float:left;">
-          <label for="">#</label>
-        </div>
-
-        <!-- name -->
-        <div class="flex items-center justify-first" style="background-color:transparent;height:100%;width:calc(100% - 85px);float:left;">
-          <label for="">Resource</label>
-        </div>
-
-      </div>
-
-      <div v-for="(item,i) in permissions" :key="'user'+i"
-        animated @click="selectedUser(item)"
-        class="flex row items-center justify-first"
-        :style="{ backgroundColor: item.selected ? '#cce8ff':'white'}"
-        style="height:5vh;width:100%;margin-bottom:1px;position:relative;clear: both;">
-
-        <!-- ctr -->
-        <div class="flex items-center justify-center" style="background-color:transparent;height:100%;width:35px;float:left;">
-          <label for="">{{i+1}}</label>
-        </div>
-
-        <!-- name -->
-        <div class="flex items-center justify-first" style="background-color:transparent;height:100%;width:calc(100% - 85px);float:left;">
-          <label for="">{{item.name}}</label>
-        </div>
-
-
-      </div>
-    </div>
-
-
-
-
+    </q-table>
   </div>
+
 </template>
 
 <script>
@@ -72,26 +38,18 @@ import _ from 'lodash';
 import { uid } from 'quasar'
 
 
-// code reference:
-// https://stackoverflow.com/questions/54228609/how-to-merge-the-key-value-pairs-of-two-json-arrays-javascript?fbclid=IwAR2OX3JDkJLUEhsMBUsVzM0R74ts0AgdYNwIFR3mIHmZXX_-uvvohrZnt9c
-const leftJoin = (many, one, key) => {
-  return Object.values(
-    [].concat(many, one)
-    .reduce((dict, item) => {
-      var value = dict[item[key]] || {}
-      value = Object.assign({} , value, item)
-      dict[item[key]] = value
-      return dict
-    }, {}));
-}
-
 export default {
   name: 'PermissionUserComponent',
   data() {
     return {
       searchPermission:'',
       filteredPermissions:[],
-      leftJoinPermission:[]
+      leftJoinPermission:[],
+      columnss: [
+        { name: 'resources_id', label: '#', align: 'left', field: 'resources_id',style: 'width: 40px;' },
+        { name: 'name', label: 'Resource', align: 'left', field: 'name',style: 'width:80px;' },
+        { name: 'prime_formula_operations', label: 'Prime Formula', align: 'left', field: 'prime_formula_operations' },
+      ],
     }
   },
   watch: {
@@ -102,11 +60,47 @@ export default {
   methods: {
     getPermissions: function(id) {
       let filteredPermissions = _.filter(this.$store.state.permissions.users.data, item => item.users_id==id);
-      let leftJoinPermission = leftJoin(this.filteredPermissions, this.$store.state.resources.list.data,'resources_id');
-      this.$store.commit('permissions/setUsersPermissions', leftJoinPermission);
+
+      // code reference: https://stackoverflow.com/questions/35903850/combine-json-arrays-by-key-javascript
+      let leftJoinPermission = _(filteredPermissions)
+                              .concat(this.resources)
+                              .groupBy('resources_id')
+                              .map(_.spread(_.assign))
+                              .value();
+
+
+      var withOperations = _.map(leftJoinPermission, o => _.extend({ operations:this.operations }, o));
+      let result = _.map(withOperations, _.partialRight(_.pick,['resources_id', 'prime_formula_operations','name','operations']))
+      console.log('withActions...',result);
+      console.log('columns...',this.columns);
+
+      this.$store.commit('permissions/setUsersPermissions', result);
     }
   },
   computed: {
+    columns: function() {
+      // { name: 'resources_id', label: '#', align: 'left', field: 'resources_id',style: 'width: 40px;' },
+      let keys = [{ name:'resources_id'}, {name:'name'}, {name:'prime_formula_operations'}];
+      let operations_keys = _.map(this.operations, _.partialRight(_.pick,['name']))
+      let merge = [...keys,...operations_keys];
+      let refinedKeys = _.map(merge, o => _.extend({
+        label: (o.name=='resources_id'?'#':o.name),
+        align: 'left',
+        'field': o.name,
+        style: 'width:auto;'
+      }, o));
+      let result = _.map(refinedKeys, _.partialRight(_.pick,['style', 'align','label','name','field']))
+      console.log('result...',result)
+      console.log('refinedKeys...',refinedKeys)
+      return refinedKeys;
+    },
+    resources: function() {
+      return this.$store.state.resources.list.data;
+    },
+    operations: function() {
+      let list = _.orderBy(this.$store.state.operations.list.data,['id'],['asc']);
+      return list;
+    },
     permissions: function() {
       return this.$store.state.permissions.users.permissions;
     },
