@@ -59,11 +59,15 @@ export default {
   },
   methods: {
     savePermission: function(resource, operations, operation) {
+      operation.checked = !operation.checked;
       console.log('resource...', resource);
       console.log('operations...', operations);
       console.log('operation...', operation);
+
       let checkedOperations = _.filter(operations, item => item.checked==true);
-      checkedOperations.push(operation)
+      if (operation.checked) {
+        checkedOperations.push(operation)
+      }
 
       let prime_formula_operations = 1;
       checkedOperations.forEach((item) => {
