@@ -27,7 +27,8 @@ export default {
   methods: {
     myLoop: function() {
       setTimeout(() => {
-        if (this.i<=this.rows) {
+        if (this.i<this.rows) {
+          this.i++;
 
           var formula = 210;
           this.uid = uid();
@@ -35,7 +36,7 @@ export default {
             this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
           });
 
-          this.i++;
+
           this.myLoop();
         }
       },this.delay);
