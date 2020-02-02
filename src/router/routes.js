@@ -45,6 +45,9 @@ const init = function() {
     locations_json.forEach((item) =>{
       store.state.sync.list.data.push({
         ...item,
+        locations:[
+          ...locations_json
+        ],
         send:[
           { id:uid(), time: '01:23:32 am ->', msg: 'running sender service', prime_formula:0, status: 'Started - ' + item.name }
         ],

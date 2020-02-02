@@ -1,10 +1,13 @@
 <template>
-  <q-btn @click="sendRecords(rows)" style="width:170px;" color="primary" label="Send 1K records"/>
+  <div>
+    <q-btn @click="sendRecords(rows)" style="width:170px;" color="primary" label="Send 1K records"/>
+  </div>
 </template>
 
 <script>
 
 import { uid } from "quasar";
+import _ from 'lodash';
 
 export default {
   name: 'SendRowsComponent',
@@ -17,7 +20,8 @@ export default {
       tab: 'Main',
       status: [],
       i:1,
-      delay:200
+      delay:200,
+      uid:''
     }
   },
   methods: {
@@ -25,10 +29,11 @@ export default {
       setTimeout(() => {
         if (this.i<=this.rows) {
 
-          this.sendTo(
-            location.id,
-
-          )
+          var formula = 210;
+          this.uid = uid();
+          this.locations.forEach((item) => {
+            this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
+          });
 
           this.i++;
           this.myLoop();
@@ -40,23 +45,30 @@ export default {
       this.rows=rows
       this.myLoop();
     },
-    sendTo: function(id, msg, prime_formula, status) {
+    send: function(id, msg, prime_formula, status, uid) {
       var dt = new Date();
-      var today = dt.getFullYear() + '-' +
-                  dt.getMonth()+1 + '-' +
-                  dt.getDate() + ' ' +
-                  dt.toLocaleTimeString();
+      // var today = dt.getFullYear() + '-' + dt.getMonth()+1 + '-' + dt.getDate() + ' ' + dt.toLocaleTimeString();
+      var today = dt.toLocaleTimeString();
 
       var data = { id, value:{
-        id:uid(), time:today + ' ->', msg,  prime_formula, status
+        id:uid, time:today + ' ->', msg,  prime_formula, status
       }};
 
-      this.$store.commit('sync/addReceived', data);
+      var location = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+      var found = location.send.findIndex(o => o.id===uid);
+      this.$store.commit('sync/send', data);
+      // if (found===-1) {
+      //   this.$store.commit('sync/send', data);
+      // } else {
+      //   this.$store.commit('sync/sendReplace', data);
+      // }
+
     }
   },
   computed: {
     locations: function() {
-      return this.$store.state.locations.list.data;
+      var loc = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+      return loc.locations;
     }
   }
 }

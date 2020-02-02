@@ -2,11 +2,17 @@ import Vue from "vue";
 import _ from "lodash";
 import { uid } from "quasar";
 
-export function addReceived(state, {id, value}) {
+export function received(state, {id, value}) {
   var location = _.find(state.list.data, { id });
-  console.log('addReceived id....', id)
-  console.log('addReceived value....', value)
-  console.log('addReceived find....', location)
   location.received.push(value);
-  console.log('addReceived....', location)
+}
+export function send(state, {id, value}) {
+  var location = _.find(state.list.data, { id });
+  location.send.push(value);
+}
+export function sendReplace(state, {id, value}) {
+  var location = _.find(state.list.data, { id });
+  console.log('sendReplace location...',location)
+  let index = location.send.findIndex(o => o.id === value.id);
+  location.send.splice(index, 1, value);
 }

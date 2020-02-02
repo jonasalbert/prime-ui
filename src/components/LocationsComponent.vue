@@ -20,7 +20,8 @@ export default {
   },
   computed: {
     locations: function() {
-      return this.$store.state.locations.list.data;
+      var loc = _.find(this.$store.state.sync.list.data, { id:this.id });
+      return loc.locations;
     }
   }
 }

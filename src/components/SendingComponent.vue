@@ -15,7 +15,7 @@
         <q-icon name="check" color="green" />
       </div>
     </div>
-    <div style="height:50px;width:100%;"></div>
+    <div style="height:100px;width:100%;"></div>
   </div>
 </template>
 
@@ -32,7 +32,6 @@ export default {
   },
   methods: {
   	scrollToEnd: function() {
-      container.scrollTop=0;
       var container = this.$refs["container_sending"+this.id];
       container.scrollTop = container.scrollHeight;
     },
