@@ -69,6 +69,10 @@ export default {
         checkedOperations.push(operation)
       }
 
+      // distinct checkedOperations here before calc.
+      checkedOperations = _.uniqBy(checkedOperations, 'id');
+
+      console.log('checkedOperations...', checkedOperations);
       let prime_formula_operations = 1;
       checkedOperations.forEach((item) => {
         prime_formula_operations=prime_formula_operations*item.prime_number;
@@ -93,7 +97,7 @@ export default {
       let per=[];
       leftJoinPermission.forEach((item) => {
         let ops = _.map(this.operations, o => _.extend({ prime_formula_operations:item.prime_formula_operations }, o));
-        let operationsCheck = { operations: _.map(ops, o => _.extend({ checked: (o.prime_formula_operations%o.prime_number==0) }, o)) };
+        let operationsCheck = { operations: _.map(ops, o => _.extend({ checked: (o.prime_formula_operations % o.prime_number==0) }, o)) };
         let ext = { ...item,...operationsCheck};
         per.push(ext);
       });

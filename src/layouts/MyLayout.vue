@@ -12,12 +12,11 @@
         />
 
         <q-toolbar-title>
-          Prime
+          Prime - {{featureName}}
         </q-toolbar-title>
 
         <q-space/>
 
-        <label>{{featureName}}</label>
         <q-space/>
 
         <!-- <div>Quasar v{{ $q.version }}</div> -->

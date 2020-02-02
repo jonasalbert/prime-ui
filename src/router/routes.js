@@ -5,7 +5,8 @@ import roles_json from '../statics/data/roles.json';
 import resources_json from '../statics/data/resources.json';
 import operations_json from '../statics/data/operations.json';
 import permission_users_json from '../statics/data/permission_users.json';
-
+import locations_json from '../statics/data/locations.json';
+import { uid } from "quasar";
 
 const init = function() {
   let user = store.state.users.list.data;
@@ -31,6 +32,30 @@ const init = function() {
   let permission_users = store.state.permissions.users.data;
   if (permission_users.length==0) {
     store.commit('permissions/setListUsers', permission_users_json);
+  }
+
+  let locations = store.state.locations.list.data;
+  console.log("locations...", locations)
+  if (locations.length==0) {
+    store.commit('locations/setListLocations', locations_json);
+  }
+
+  let sync = store.state.sync.list.data;
+  if (sync.length==0) {
+    locations_json.forEach((item) =>{
+      store.state.sync.list.data.push({
+        ...item,
+        send:[
+          { id:uid(), time: '01:23:32 am ->', msg: 'running sender service', prime_formula:0, status: 'Started - ' + item.name }
+        ],
+        received:[
+          { id:uid(), time: '01:23:32 am ->', msg: 'running receiver service', prime_formula:0, status: 'Started - ' + item.name }
+        ],
+        status:[
+          { id:uid(), msg: '01:23:32 am -> Terminal started - ' + item.name }
+        ]
+      })
+    });
   }
 
 const result = join(permission_users_json, resources_json,'resources_id');

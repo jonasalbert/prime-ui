@@ -1,0 +1,6 @@
+[
+  { "id": 1, "prime_number": 2, "name": "Main", "selected":true },
+  { "id": 2, "prime_number": 3, "name": "Manila", "selected":true },
+  { "id": 3, "prime_number": 5, "name": "Cebu", "selected":true },
+  { "id": 4, "prime_number": 7, "name": "Davao", "selected":true }
+]

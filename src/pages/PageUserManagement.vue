@@ -48,7 +48,6 @@
       </q-tab-panels>
     </q-card>
 
-
   </q-page>
 </template>
 
