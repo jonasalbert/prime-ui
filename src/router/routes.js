@@ -48,6 +48,7 @@ const init = function() {
         locations:[
           ...locations_json
         ],
+        isSending:false,
         send:[
           { id:uid(), time: '01:23:32 am ->', msg: 'running sender service', prime_formula:0, status: 'Started - ' + item.name }
         ],

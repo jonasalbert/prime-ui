@@ -1,6 +1,8 @@
 <template>
   <div>
-    <q-btn @click="sendRecords(rows)" style="width:170px;" color="primary" label="Send 1K records"/>
+    <q-btn
+    :loading="isSending"
+    @click="sendRecords(rows)" style="width:170px;" color="primary" label="Send 1K records"/>
   </div>
 </template>
 
@@ -38,10 +40,13 @@ export default {
 
 
           this.myLoop();
+        } else {
+          this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
         }
       },this.delay);
     },
     sendRecords: function(rows) {
+      this.$store.commit('sync/setIsSending', { id:this.location.id, value:true });
       this.i=0;
       this.rows=rows
       this.myLoop();
@@ -67,6 +72,10 @@ export default {
     }
   },
   computed: {
+    isSending: function() {
+      var location = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+      return location.isSending;
+    },
     locations: function() {
       var loc = _.find(this.$store.state.sync.list.data, { id:this.location.id });
       return loc.locations;
