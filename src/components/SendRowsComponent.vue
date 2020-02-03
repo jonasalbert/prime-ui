@@ -22,7 +22,7 @@ export default {
       tab: 'Main',
       status: [],
       i:1,
-      delay:200,
+      delay:500,
       uid:''
     }
   },
@@ -34,11 +34,13 @@ export default {
 
           var formula = 210;
           this.uid = uid();
-          this.locations.forEach((item) => {
-            this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
-            this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
-          });
 
+          setTimeout(() => {
+            this.locations.forEach((item) => {
+              this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
+              this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
+            });
+          },100);
 
           this.myLoop();
         } else {
@@ -57,7 +59,7 @@ export default {
       var today = dt.toLocaleTimeString();
 
       var data = { id, value:{
-        id:uid, time:today + ' ->', msg,  prime_formula:0, status
+        id:uid, time:today + ' ->', msg,  prime_formula:1, status
       }};
       this.$store.commit('sync/received', data);
     },
@@ -68,15 +70,15 @@ export default {
       var data = { id, value:{
         id:uid, time:today + ' ->', msg,  prime_formula, status
       }};
-      this.$store.commit('sync/send', data);
+      // this.$store.commit('sync/send', data);
 
-      // var location = _.find(this.$store.state.sync.list.data, { id:this.location.id });
-      // var found = location.send.findIndex(o => o.id===uid);
-      // if (found===-1) {
-      //   this.$store.commit('sync/send', data);
-      // } else {
-      //   this.$store.commit('sync/sendReplace', data);
-      // }
+      var location = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+      var found = location.send.findIndex(o => o.id===uid);
+      if (found===-1) {
+        this.$store.commit('sync/send', data);
+      } else {
+        this.$store.commit('sync/sendReplace', data);
+      }
     }
   },
   computed: {
