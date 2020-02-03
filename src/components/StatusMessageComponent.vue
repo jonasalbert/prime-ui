@@ -3,7 +3,7 @@
     <div v-for="(item, i) in list" :key="'msg'+i" style="background-color:black;height:20px;width:100%;">
       <label style="color:white;padding-left:10px;">{{item.msg}}</label>
     </div>
-    <div style="height:50px;width:100%;"></div>
+    <div style="height:150px;width:100%;"></div>
   </div>
 </template>
 

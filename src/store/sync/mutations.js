@@ -15,9 +15,11 @@ export function sendReplace(state, {id, value}) {
   let index = location.send.findIndex(o => o.id === value.id);
   location.send.splice(index, 1, value);
 }
-export function setIsSending(state,{ id, value }) {
-  console.log('setIsSending id...', id)
+export function status(state, {id, value}) {
   var location = _.find(state.list.data, { id });
-  console.log('setIsSending location...', location)
+  location.status.push(value);
+}
+export function setIsSending(state,{ id, value }) {
+  var location = _.find(state.list.data, { id });
   location.isSending=value;
 }

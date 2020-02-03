@@ -39,6 +39,7 @@ export default {
             this.locations.forEach((item) => {
               this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
               this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
+              this.statusMsg(this.location.id, 'sending record '+this.i + ' to ' + item.name);
             });
           },100);
 
@@ -53,6 +54,15 @@ export default {
       this.i=0;
       this.rows=rows
       this.myLoop();
+    },
+    statusMsg: function(id, msg) {
+      var dt = new Date();
+      var today = dt.toLocaleTimeString();
+
+      var data = { id, value:{
+        id:uid, msg:today + ' ->', msg
+      }};
+      this.$store.commit('sync/status', data);
     },
     received: function(id, msg, status, uid) {
       var dt = new Date();
