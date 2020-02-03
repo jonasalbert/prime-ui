@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%;padding:10px 0 10px 20px;">
-    <div v-show="chk.id!==id"
+    <div :disabled="chk.id==id"
       v-for="(chk,i) in locations" :key="'sendTo'+i"
       style="background-color:transparent;padding-bottom:5px;" class="flex rows justify-start items-center content-center" >
       <input type="checkbox" :checked="chk.selected" :id="'loc'+chk.name">
@@ -21,6 +21,9 @@ export default {
   computed: {
     locations: function() {
       var loc = _.find(this.$store.state.sync.list.data, { id:this.id });
+      loc.locations.forEach((item) => {
+        item.selected = item.id!==this.id;
+      });
       return loc.locations;
     }
   }

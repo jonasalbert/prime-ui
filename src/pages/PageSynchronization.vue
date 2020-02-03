@@ -31,7 +31,7 @@
           <div class="flex column" style="width:100%;background-color:white;height:100%;border: 1px solid gray;">
             <div style="background-color:white;height:100%;width:200px;border-right: 1px solid gray;border-bottom: 1px solid gray;text-align:center;padding-top:10px;">
 
-              <LocationsComponent v-if="item.id==1" :id="item.id" />
+              <LocationsComponent :id="item.id" />
               <SendRowsComponent v-if="item.id==1" :location="item" :rows="50" />
 
             </div>
