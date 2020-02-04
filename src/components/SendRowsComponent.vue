@@ -2,7 +2,7 @@
   <div>
     <q-btn
     :loading="isSending"
-    @click="sendRecords(rows)" style="width:170px;" color="primary" label="Send 1K records"/>
+    @click="sendRecords()" style="width:170px;" color="primary" label="Send 1K records"/>
   </div>
 </template>
 
@@ -10,6 +10,29 @@
 
 import { uid } from "quasar";
 import _ from 'lodash';
+import delay from 'delay';
+
+// https://stackoverflow.com/questions/22815790/set-a-delay-timeout-inside-a-double-nested-loop
+var delayed = (function() {
+  var queue = [];
+
+  function processQueue() {
+    if (queue.length > 0) {
+      setTimeout(function () {
+        queue.shift().cb();
+        processQueue();
+      }, queue[0].delay);
+    }
+  }
+
+  return function delayed(delay, cb) {
+    queue.push({ delay: delay, cb: cb });
+
+    if (queue.length === 1) {
+      processQueue();
+    }
+  };
+}());
 
 export default {
   name: 'SendRowsComponent',
@@ -21,46 +44,75 @@ export default {
     return {
       tab: 'Main',
       status: [],
-      i:1,
       delay:500,
-      uid:''
+      uid:'',
+      sendingTo:false
     }
   },
   methods: {
-    myLoop: function() {
-      setTimeout(() => {
-        if (this.i<this.rows) {
-          this.i++;
+    // myLoop: function() {
+    //   setTimeout(() => {
+    //     if (this.sendingTo) return;
+    //     if (this.i<this.rows) {
 
-          var formula = 210;
-          this.uid = uid();
+    //       this.i++;
+    //       var formula = 210;
+    //       this.uid = uid();
 
-          setTimeout(() => {
-            this.locations.forEach((item) => {
-              this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
-              this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
-              this.statusMsg(this.location.id, 'sending record '+this.i + ' to ' + item.name);
-            });
-          },100);
+    //       this.sendingTo=true;
 
-          this.myLoop();
-        } else {
-          this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
-        }
-      },this.delay);
-    },
-    sendRecords: function(rows) {
+    //       this.locations.forEach((item) => {
+    //         setTimeout(() => {
+    //           this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
+    //           this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
+    //           this.statusMsg(this.location.id, 'sending record '+this.i + ' to ' + item.name);
+    //         },300);
+    //       });
+
+    //       this.sendingTo=false;
+
+    //       this.myLoop();
+    //     } else {
+    //       this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
+    //     }
+    //   },this.delay);
+    // },
+
+    sendRecords: function() {
       this.$store.commit('sync/setIsSending', { id:this.location.id, value:true });
-      this.i=0;
-      this.rows=rows
-      this.myLoop();
+      this.sendRows();
+    },
+    sendRows: async function() {
+      this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s... ');
+
+      // prepare the rows....
+      for(let i=1; i<=this.rows;i++) {
+        this.locations.forEach((loc, l) => {
+          delayed(100, () => {
+            this.send(this.location.id, 'record '+ i, 210, 'sending to '+loc.name, uid());
+            this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
+
+            if (i===1 && loc.id!==this.location.id) {
+              this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...');
+            }
+            if (i===this.rows && l===0) {
+              this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully. ');
+            }
+            if (i===this.rows && l>0) {
+              this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name);
+            }
+          })
+        })
+      }
+
+      this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
     },
     statusMsg: function(id, msg) {
       var dt = new Date();
       var today = dt.toLocaleTimeString();
 
       var data = { id, value:{
-        id:uid, msg:today + ' ->', msg
+        id:uid, msg:today + ' -> ' + msg
       }};
       this.$store.commit('sync/status', data);
     },
@@ -80,7 +132,6 @@ export default {
       var data = { id, value:{
         id:uid, time:today + ' ->', msg,  prime_formula, status
       }};
-      // this.$store.commit('sync/send', data);
 
       var location = _.find(this.$store.state.sync.list.data, { id:this.location.id });
       var found = location.send.findIndex(o => o.id===uid);
@@ -105,6 +156,10 @@ export default {
     locations: function() {
       var loc = _.find(this.$store.state.sync.list.data, { id:this.location.id });
       return loc.locations;
+    },
+    forSending: function() {
+      var loc = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+      return loc.send;
     }
   }
 }

@@ -32,7 +32,7 @@
             <div style="background-color:white;height:100%;width:200px;border-right: 1px solid gray;border-bottom: 1px solid gray;text-align:center;padding-top:10px;">
 
               <LocationsComponent :id="item.id" />
-              <SendRowsComponent v-if="item.id==1" :location="item" :rows="50" />
+              <SendRowsComponent v-if="item.id==1" :location="item" :rows="20" />
 
             </div>
             <div class="column" style="background-color:transparent;height:100%;width:calc(100% - 200px);border-bottom: 1px solid gray;">

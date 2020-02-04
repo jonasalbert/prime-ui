@@ -38,8 +38,10 @@ const init = function() {
   console.log("locations...", locations)
   if (locations.length==0) {
     store.commit('locations/setListLocations', locations_json);
+
   }
 
+  var dt = new Date();
   let sync = store.state.sync.list.data;
   if (sync.length==0) {
     locations_json.forEach((item) =>{
@@ -50,13 +52,13 @@ const init = function() {
         ],
         isSending:false,
         send:[
-          { id:uid(), time: '01:23:32 am ->', msg: 'running sender service', prime_formula:0, status: 'Started - ' + item.name }
+          { id:uid(), time:  dt.toLocaleTimeString() + ' ->', msg: 'running sender service', prime_formula:0, status: 'Started - ' + item.name }
         ],
         received:[
-          { id:uid(), time: '01:23:32 am ->', msg: 'running receiver service', prime_formula:0, status: 'Started - ' + item.name }
+          { id:uid(), time:  dt.toLocaleTimeString() + ' ->', msg: 'running receiver service', prime_formula:0, status: 'Started - ' + item.name }
         ],
         status:[
-          { id:uid(), msg: '01:23:32 am -> Terminal started - ' + item.name }
+          { id:uid(), msg:  dt.toLocaleTimeString() + ' -> Terminal started - ' + item.name }
         ]
       })
     });
