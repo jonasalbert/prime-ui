@@ -50,40 +50,12 @@ export default {
     }
   },
   methods: {
-    // myLoop: function() {
-    //   setTimeout(() => {
-    //     if (this.sendingTo) return;
-    //     if (this.i<this.rows) {
-
-    //       this.i++;
-    //       var formula = 210;
-    //       this.uid = uid();
-
-    //       this.sendingTo=true;
-
-    //       this.locations.forEach((item) => {
-    //         setTimeout(() => {
-    //           this.send(this.location.id, 'sending record '+this.i, 210, this.location.name + ' to ' + item.name, this.uid);
-    //           this.received(item.id, 'received record '+this.i, 'from ' + this.location.name, this.uid);
-    //           this.statusMsg(this.location.id, 'sending record '+this.i + ' to ' + item.name);
-    //         },300);
-    //       });
-
-    //       this.sendingTo=false;
-
-    //       this.myLoop();
-    //     } else {
-    //       this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
-    //     }
-    //   },this.delay);
-    // },
-
     sendRecords: function() {
       this.$store.commit('sync/setIsSending', { id:this.location.id, value:true });
       this.sendRows();
     },
     sendRows: async function() {
-      this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s... ');
+      this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s... ',1);
 
       // prepare the rows....
       for(let i=1; i<=this.rows;i++) {
@@ -93,13 +65,13 @@ export default {
             this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
 
             if (i===1 && loc.id!==this.location.id) {
-              this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...');
+              this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...',1);
             }
             if (i===this.rows && l===0) {
-              this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully. ');
+              this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully. ',2);
             }
             if (i===this.rows && l>0) {
-              this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name);
+              this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name,2);
             }
           })
         })
@@ -107,12 +79,12 @@ export default {
 
       this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
     },
-    statusMsg: function(id, msg) {
+    statusMsg: function(id, msg, type=0) {
       var dt = new Date();
       var today = dt.toLocaleTimeString();
 
       var data = { id, value:{
-        id:uid, msg:today + ' -> ' + msg
+        id:uid, msg:today + ' -> ' + msg, type
       }};
       this.$store.commit('sync/status', data);
     },

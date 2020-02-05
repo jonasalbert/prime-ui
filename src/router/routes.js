@@ -58,7 +58,7 @@ const init = function() {
           { id:uid(), time:  dt.toLocaleTimeString() + ' ->', msg: 'running receiver service', prime_formula:0, status: 'Started - ' + item.name }
         ],
         status:[
-          { id:uid(), msg:  dt.toLocaleTimeString() + ' -> Terminal started - ' + item.name }
+          { id:uid(), msg:  dt.toLocaleTimeString() + ' -> Terminal started - ' + item.name, type:0 }
         ]
       })
     });
