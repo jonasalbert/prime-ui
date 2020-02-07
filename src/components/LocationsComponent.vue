@@ -6,7 +6,7 @@
       class="flex rows justify-start items-center content-center" >
 
       <input
-        @change="updateSelected($event)"
+        @change="updateSelected(chk)"
         type="checkbox"
         :value="chk.id"
         v-model="chk.selected"

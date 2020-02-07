@@ -2,7 +2,7 @@
   <div>
     <q-btn
     :loading="isSending"
-    @click="sendRecords()" style="width:170px;" color="primary" :label="'Send 1K records'"/>
+    @click="sendRecords()" style="width:170px;" color="primary" :label="'Send 100 records'"/>
   </div>
 </template>
 
@@ -43,7 +43,9 @@ export default {
   data() {
     return {
       excludeLocation:[],
+      allowedPrimeInJS:245181918813464,
       limit: 9007199254740991,
+      // limit: 9007199254740991,
       tab: 'Main',
       status: [],
       delay:500,
@@ -62,31 +64,46 @@ export default {
       this.sendRows();
     },
     sendRows: async function() {
+      let probability = Math.floor(this.limit / Math.log(this.limit));
+      console.log('the probability...',probability);
       this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s... ',1);
 
       // prepare the rows....
       for(let i=1; i<=this.rows;i++) {
         this.locations.forEach((loc, l) => {
           delayed(100, () => {
-            let prime_formula = this.primeFormula;
-            if ((prime_formula % loc.prime_number)==0) {
-              this.excludeLocation.push(loc.id);
-              this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
-              this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
 
-              if (i===1 && loc.id!==this.location.id) {
+            let prime_formula = this.primeFormula;
+            let allowed = ((prime_formula % loc.prime_number)==0);
+
+            // recompute the prime_formula
+            if (allowed) {
+              this.excludeLocation.push(loc.id);
+              prime_formula = this.primeFormula;
+            }
+
+            // paging....
+            if (allowed) {
+              let selectedPrime = _.find(this.locations, { selected:true });
+              this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
+            }
+
+            if (allowed) this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
+
+              if (i===1 && loc.id!==this.location.id && allowed) {
                 this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...',1);
               }
-              if (i>=this.rows) {
+              if (i>=this.rows && allowed) {
                 this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully to '+loc.name+'.',2);
+                // this.$store.commit('sync/setIsSending', { id:this.location.id, value:false });
               }
-              if (i>=this.rows && l>0) {
+              if (i>=this.rows && l>0 & allowed) {
                 this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name,2);
               }
               if (l+1 >= this.locations.length) {
                 this.excludeLocation=[];
               }
-            }
+
 
           })
 
