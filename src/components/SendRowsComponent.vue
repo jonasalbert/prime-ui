@@ -2,7 +2,7 @@
   <div>
     <q-btn
     :loading="isSending"
-    @click="sendRecords()" style="width:170px;" color="primary" label="Send 1K records"/>
+    @click="sendRecords()" style="width:170px;" color="primary" :label="'Send 1K records'"/>
   </div>
 </template>
 
@@ -42,6 +42,8 @@ export default {
   },
   data() {
     return {
+      excludeLocation:[],
+      limit: 9007199254740991,
       tab: 'Main',
       status: [],
       delay:500,
@@ -50,6 +52,11 @@ export default {
     }
   },
   methods: {
+    isNextPage: function() {
+      let selectedPrime = _.find(this.locations, { selected:true });
+      let probability = Math.floor(this.limit / Math.log(this.limit));
+      return selectedPrime.length > probability;
+    },
     sendRecords: function() {
       this.$store.commit('sync/setIsSending', { id:this.location.id, value:true });
       this.sendRows();
@@ -61,19 +68,29 @@ export default {
       for(let i=1; i<=this.rows;i++) {
         this.locations.forEach((loc, l) => {
           delayed(100, () => {
-            this.send(this.location.id, 'record '+ i, 210, 'sending to '+loc.name, uid());
-            this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
+            let prime_formula = this.primeFormula;
+            if ((prime_formula % loc.prime_number)==0) {
+              this.excludeLocation.push(loc.id);
+              this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
+              this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
 
-            if (i===1 && loc.id!==this.location.id) {
-              this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...',1);
+              if (i===1 && loc.id!==this.location.id) {
+                this.statusMsg(loc.id, 'receiving ' + this.rows + ' record/s from ' + this.location.name +'...',1);
+              }
+              if (i>=this.rows) {
+                this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully to '+loc.name+'.',2);
+              }
+              if (i>=this.rows && l>0) {
+                this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name,2);
+              }
+              if (l+1 >= this.locations.length) {
+                this.excludeLocation=[];
+              }
             }
-            if (i===this.rows && l===0) {
-              this.statusMsg(this.location.id, 'sending ' + this.rows + ' record/s successfully. ',2);
-            }
-            if (i===this.rows && l>0) {
-              this.statusMsg(loc.id, 'received ' + this.rows + ' record/s from ' + this.location.name,2);
-            }
+
           })
+
+
         })
       }
 
@@ -115,6 +132,29 @@ export default {
     }
   },
   computed: {
+    primeFormula: function() {
+      let loc = JSON.parse(JSON.stringify(_.find(this.$store.state.sync.list.data, { id:this.location.id })));
+      let filtered = loc.locations.filter(e => this.excludeLocation.indexOf(e.id) === -1);
+
+      let formula = 1;
+      filtered.forEach((item) => {
+        if (item.selected && item.id!==this.location.id) {
+          formula=formula*item.prime_number;
+        }
+      })
+      return formula;
+    },
+    primeFormula11: function() {
+      var loc = _.find(this.$store.state.sync.list.data, { id:this.location.id });
+
+      let formula = 1;
+      loc.locations.forEach((item) => {
+        if (item.selected && item.id!==this.location.id) {
+          formula=formula*item.prime_number;
+        }
+      })
+      return formula;
+    },
     datetime: function() {
       return dt.getFullYear() + '-' + dt.getMonth()+1 + '-' + dt.getDate() + ' ' + dt.toLocaleTimeString();
     },

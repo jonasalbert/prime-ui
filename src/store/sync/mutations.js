@@ -23,3 +23,15 @@ export function setIsSending(state,{ id, value }) {
   var location = _.find(state.list.data, { id });
   location.isSending=value;
 }
+export function selectedLocation(state, {id,value}) {
+  // console.log('selectedLocation id...', id);
+  // var loc = _.find(state.list.data, { id:id });
+  // let index = loc.locations.findIndex(o => o.id === value.id);
+  // loc.locations.splice(index, 1, value);
+  // console.log('selectedLocation index...', index);
+
+  console.log('selectedLocation value...', value);
+  var list = _.find(state.list.data, { id });
+  list.locations=value;
+  console.log('selectedLocation list data...', state.list.data);
+}
