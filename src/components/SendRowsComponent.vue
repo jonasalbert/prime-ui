@@ -57,6 +57,8 @@ export default {
     isNextPage: function() {
       let selectedPrime = _.find(this.locations, { selected:true });
       let probability = Math.floor(this.limit / Math.log(this.limit));
+      console.log('isNextPage selectedPrime', selectedPrime)
+      console.log('isNextPage probability', probability)
       return selectedPrime.length > probability;
     },
     sendRecords: function() {
@@ -85,7 +87,11 @@ export default {
             // paging....
             if (allowed) {
               let selectedPrime = _.find(this.locations, { selected:true });
-              this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
+              if (this.isNextPage) {
+                this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
+              } else {
+                this.send(this.location.id, 'record '+ i, prime_formula, 'sending to '+loc.name, uid());
+              }
             }
 
             if (allowed) this.received(loc.id, 'received record '+i, 'from ' + this.location.name, uid());
